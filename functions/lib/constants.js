@@ -20,7 +20,7 @@ exports.VIDEO_ID = '<VIDEO_ID>';
 // For all entity code refer to the table above
 exports.TITLE = {
     CHANGE: true,
-    VALUE: 'This video has <VIEW> views and is liked by <LIKE>'
+    VALUE: 'This video has <VIEW> views and <LIKE> likes'
 };
 // If you want to change the description set CHANGE to true else set it to false.
 // Edit the value attribute to configure this option.

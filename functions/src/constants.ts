@@ -1,6 +1,6 @@
 // This is the id of the video you want to use.
 // It should be from your channel or a channel you are authorised to manage.
-export const VIDEO_ID = 'sOfC0rcrCs8'
+export const VIDEO_ID = '<VIDEO_ID>'
 // All the options below are optional if you are confused leave them as they are.
 // ========================================           
 // |       Entity      |   ENTITY_CODE    |
@@ -18,7 +18,7 @@ export const VIDEO_ID = 'sOfC0rcrCs8'
 // For all entity code refer to the table above
 export const TITLE = {
     CHANGE: true,
-    VALUE: 'This video has <VIEW> views and is liked by <LIKE>'
+    VALUE: 'This video has <VIEW> views and <LIKE> likes'
 };
 // If you want to change the description set CHANGE to true else set it to false.
 // Edit the value attribute to configure this option.

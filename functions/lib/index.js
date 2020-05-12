@@ -57,7 +57,7 @@ function getSnippet(statistics) {
         throw new Error("Atleast one amoung title and discription must be changed");
     return Snippet;
 }
-exports.updateViews = functions.https.onRequest((request, response) => {
+exports.updateVideo = functions.https.onRequest((request, response) => {
     let auth;
     login_1.login().then((aut) => auth = aut)
         .then((_) => getDetails(auth))
