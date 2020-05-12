@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // This is the id of the video you want to use.
 // It should be from your channel or a channel you are authorised to manage.
-exports.VIDEO_ID = 'sOfC0rcrCs8';
+exports.VIDEO_ID = '<VIDEO_ID>';
 // All the options below are optional if you are confused leave them as they are.
 // ========================================           
 // |       Entity      |   ENTITY_CODE    |
