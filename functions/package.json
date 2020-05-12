@@ -17,8 +17,7 @@
     "firebase-functions": "^3.6.1",
     "fs": "0.0.1-security",
     "googleapis": "^50.0.0",
-    "readline": "^1.3.0",
-    "tsc": "^1.20150623.0"
+    "readline": "^1.3.0"
   },
   "devDependencies": {
     "typescript": "^3.8.0",
