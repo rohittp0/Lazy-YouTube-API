@@ -1,6 +1,6 @@
 # YouTube-API
 
-<center>!<img src="./Rescources/icon.png" alt="logo"></center>
+<img src="./Rescources/icon.png" align="center" alt="logo">
 
 Haven't you heard about the latest trend in YouTube. **DYNAMIC VIDEO TITLES DESCRIPTIONS !! ** What you did not see the literally two videos that exists out there ? You surely must be living under a rock. Don't worry now you don't even need to know what it is to create one. You can use this script to walk you through and do the majority of the work.
 
@@ -32,7 +32,7 @@ Dynamic titles and descriptions are titles and descriptions that change even aft
 
 If you are planing to use the script with all the options set to default values then you are in luck. You can just click on the button above and run the script directly on Google-Colab. The script is designed to walk you through no more explanation needed. But if for some reason ( Which I actually can’t understand ) are confused watch this video for a step by step instructions :
 
-<center><a href="https://www.youtube.com/watch?v=video_id"><img src="https://yt-embed.herokuapp.com/embed?v=video_id" alt="Click here to watch on YouTube"></a></center> 
+<a href="https://www.youtube.com/watch?v=video_id"><img src="https://yt-embed.herokuapp.com/embed?v=video_id" alt="Click here to watch on YouTube" align="center"></a> 
 
 ### With Custom Options
 
