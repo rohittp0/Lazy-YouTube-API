@@ -4,28 +4,38 @@ const functions = require("firebase-functions");
 const googleapis_1 = require("googleapis");
 const constants_1 = require("./constants");
 const login_1 = require("./login");
+const EXTRA_VIDEO_ID = '<E_VIDEO_ID>';
+const EXTRA_INFO = `This video's title is managed by Lazy Youtube API \\n
+                Check out https://www.youtube.com/watch?v=${EXTRA_VIDEO_ID}to know more. \\n`;
 /**
  * Gets the statistics of the video with video id VIDEO_ID
  *
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ * @param {OAuth2Client} auth An authorized OAuth2 client.
+ * @returns {Promise<VideoInfo>} The details about the video.
  */
 async function getDetails(auth) {
     const service = googleapis_1.google.youtube('v3');
     const response = await service.videos.list({
         auth: auth,
         id: constants_1.VIDEO_ID,
-        part: 'statistics'
+        part: 'statistics,snippet'
     });
-    if (response.data.items)
-        return response.data.items[0].statistics;
-    else
-        throw new Error("could not get view count");
+    if (!response.data.items)
+        throw constants_1.ERRORS.NO_ITEMS;
+    if (!response.data.items[0].statistics)
+        throw constants_1.ERRORS.No_STATISTICS;
+    if (!response.data.items[0].snippet)
+        throw constants_1.ERRORS.NO_SNIPPET;
+    return {
+        statistics: response.data.items[0].statistics,
+        snippet: response.data.items[0].snippet
+    };
 }
 /**
  * Gets the statistics of the video with video id VIDEO_ID
  *
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- * @returns {Promise<any>} serevrResponse
+ * @param {OAuth2Client} auth An authorized OAuth2 client.
+ * @returns {Promise<youtube_v3.Schema$Video>} serverResponse
  */
 async function setDetails(auth, Snippet) {
     const service = googleapis_1.google.youtube('v3');
@@ -36,38 +46,42 @@ async function setDetails(auth, Snippet) {
             id: constants_1.VIDEO_ID,
             snippet: Snippet
         }
-    });
+    }).then();
 }
 /**
  * Creates a snippet object to be used to update the video.
  *
- * @param {object} statistics The statistics object to get values from.
- * @returns {snippet} serevrResponse
+ * @param {VideoInfo} details The details about the video.
+ * @returns {youtube_v3.Schema$VideoSnippet}
  */
-function getSnippet(statistics) {
-    const Snippet = {
-        categoryId: 27,
+function getSnippet(details) {
+    const snippet = {
+        categoryId: '27',
         defaultLanguage: 'en'
     };
+    const statistics = details.statistics;
+    const desc = details.snippet.description;
     if (constants_1.TITLE.CHANGE)
-        Snippet.title = constants_1.fromatValue(constants_1.TITLE.VALUE, statistics);
+        snippet.title = constants_1.fromatValue(constants_1.TITLE.VALUE, statistics);
     if (constants_1.DESCRIPTION.CHANGE)
-        Snippet.description = constants_1.fromatValue(constants_1.DESCRIPTION.VALUE, statistics);
+        snippet.description = EXTRA_INFO + constants_1.fromatValue(constants_1.DESCRIPTION.VALUE, statistics);
+    else
+        snippet.description = EXTRA_INFO + desc;
     if (!constants_1.TITLE.CHANGE && !constants_1.DESCRIPTION.CHANGE)
-        throw new Error("Atleast one amoung title and discription must be changed");
-    return Snippet;
+        throw constants_1.ERRORS.NO_CHANGE;
+    return snippet;
 }
-exports.updateVideo = functions.https.onRequest((request, response) => {
+exports.updateVideo = functions.https.onRequest((_request, response) => {
     let auth;
     login_1.login().then((aut) => auth = aut)
         .then((_) => getDetails(auth))
         .then(getSnippet)
         .then((Snippet) => setDetails(auth, Snippet))
-        .then((res) => response.end("Mission Success"))
+        .then((_) => response.end('Mission Success'))
         .catch((error) => {
         console.error(error);
         response.status(404)
-            .send('Something went wrong. Check log for more information.');
+            .send(constants_1.ERRORS.GENERAL_ERROR.message);
     });
 });
 //# sourceMappingURL=index.js.map

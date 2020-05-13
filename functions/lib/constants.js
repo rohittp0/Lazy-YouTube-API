@@ -31,25 +31,20 @@ exports.DESCRIPTION = {
     CHANGE: false,
     VALUE: ''
 };
-//-------------------------------------------------------------------
-// Don't change any thing below unless you know what you are doing
-//-------------------------------------------------------------------
-// ========================================           
-// |       Entity      |   ENTITY_CODE    |
-// |-------------------|------------------|
-// |   View Count      |     <VIEW>       |
-// |   Like Count      |     <LIKE>       |
-// |   Dislike Count   |     <DISLIKE>    |
-// |   Favorite Count  |    <FAVORITE>    |
-// |   Comment Count   |     <COMMENT>    |
-// ======================================== 
 function fromatValue(value, statistics) {
-    return value.split('<VIEW>').join(statistics.viewCount)
-        .split('<LIKE>').join(statistics.likeCount)
-        .split('<DISLIKE>').join(statistics.likeCount)
-        .split('<FAVORITE>').join(statistics.likeCount)
-        .split('<COMMENT>').join(statistics.likeCount);
+    return value.split('<VIEW>').join(statistics.viewCount || '')
+        .split('<LIKE>').join(statistics.likeCount || '')
+        .split('<DISLIKE>').join(statistics.dislikeCount || '')
+        .split('<FAVORITE>').join(statistics.favoriteCount || '')
+        .split('<COMMENT>').join(statistics.commentCount || '');
 }
 exports.fromatValue = fromatValue;
 ;
+exports.ERRORS = {
+    NO_ITEMS: new Error('could not get details. response.data dose not contain items.'),
+    No_STATISTICS: new Error('could not get details. response.data.items[0] dose not contain statistics.'),
+    NO_SNIPPET: new Error('could not get details. response.data.items[0] dose not contain snippet.'),
+    NO_CHANGE: new Error('Atleast one amoung title or discription must be changed'),
+    GENERAL_ERROR: new Error('Something went wrong. Check log for more information.')
+};
 //# sourceMappingURL=constants.js.map

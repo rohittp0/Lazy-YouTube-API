@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const readline = require("readline");
 const googleapis_1 = require("googleapis");
 const fs = require("fs");
+const oauth2client_1 = require("../node_modules/googleapis-common/node_modules/google-auth-library/build/src/auth/oauth2client");
+exports.OAuth2Client = oauth2client_1.OAuth2Client;
 // If modifying these scopes, delete your previously saved credentials
-// at ~/.credentials/youtube-nodejs-quickstart.json
+// at functions/lib/.credentials/credentials.json
 const SCOPES = ['https://www.googleapis.com/auth/youtube'];
 const CRED_DIR = __dirname + '/.credentials/';
 const TOKEN_PATH = CRED_DIR + 'youtube-data-v3.json';
@@ -29,12 +31,13 @@ function readJSON(filePath) {
  * Create an OAuth2 client with the credentials from json, and then return a
  * promise which resolves to OAuth2 object
  *
- * @param {String} path The path to client credentials JSON file.
- * @returns {google.auth.OAuth2}
+ * @returns {OAuth2Client}
  */
 async function login() {
     // Load client secrets from a local file.
     const credentials = await readJSON(JSON_PATH);
+    if (!credentials.installed)
+        throw new Error(`Unable to read credentials. Make sure ${JSON_PATH} exists`);
     // Authorize a client with the loaded credentials, then call the YouTube API.
     const clientSecret = credentials.installed.client_secret;
     const clientId = credentials.installed.client_id;

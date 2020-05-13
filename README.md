@@ -28,7 +28,7 @@ Dynamic titles and descriptions are titles and descriptions that change even aft
 
 ## Getting Started
 
-### Using Default Options
+### Using Default Options <a href="https://colab.research.google.com/github/rohittp0/Lazy-YouTube-API/blob/master/Lazy_YouTube_API.ipynb" ><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"  align="right"></a>
 
 If you are planing to use the script with all the options set to default values then you are in luck. You can just click on the button above and run the script directly on Google-Colab. The script is designed to walk you through no more explanation needed. But if for some reason ( Which I actually can’t understand ) are confused watch this video for a step by step instructions :
 
@@ -86,7 +86,7 @@ git clone https://github.com/rohittp0/Lazy-YouTube-API.git
 
 ## How dose it Work ?
 
-This script creates a Firebase cloud function (HTTPS rest API)  that when called will use YouTube’s Data API  to read and update your video title and description. YouTube provides 10 thousand API quota per day. One call from our function costs 56 points so we can safely call the API every 8 minutes. Calling the function at this rate is handled by a cron job of your choice (I recommend [cron-job.org](https://cron-job.org/en/) ) . For more details check out the [documentation](/docs/README.md)
+This script creates a Firebase cloud function (HTTPS rest API)  that when called will use YouTube’s Data API  to read and update your video title and description. YouTube provides 10 thousand API quota per day. One call from our function costs 56 points so we can safely call the API every 8 minutes. Calling the function at this rate is handled by a cron job of your choice (I recommend [cron-job.org](https://cron-job.org/en/) ) . For more details check out the [documentation](https://lazyyoutubeapi.000webhostapp.com/globals.html).
 
 ## Questions and Feedback
 
