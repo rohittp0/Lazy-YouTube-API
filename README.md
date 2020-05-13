@@ -1,2 +1,3 @@
-# Youtube-API
-An easy to use script for make view counting videos on YouTube
+# YouTube-API
+
+![icon](./Rescources/icon.png)
