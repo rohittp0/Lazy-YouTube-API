@@ -4,6 +4,24 @@
 
 Haven't you heard about the latest trend in YouTube. **DYNAMIC VIDEO TITLES DESCRIPTIONS !! ** What you did not see the literally two videos that exists out there ? You surely must be living under a rock. Don't worry now you don't even need to know what it is to create one. You can use this script to walk you through and do the majority of the work.
 
+### Table of contents
+
+<ol>
+	<li><a href="what-is-this-dynamic-thing-">What is this Dynamic Thing ?</a></li>
+	<li><a href="getting-started">Getting Started</a></li>
+	<ul>
+		<li><a href="using-default-options">Using Default Options</a></li>
+    	<li><a href="with-custom-options">With Custom Options</a></li>
+    	<li><a href="examples">Examples</a></li> 
+    	<li><a href="running-locally">Running Locally</a></li>
+	</ul>
+	<li><a href="how-dose-it-work-">How dose it Work ?</a></li>  
+	<li><a href="questions-and-feedback">Questions and Feedback</a></li> 
+	<ul>
+		<li><a href="contact-me">Contact Me</a></li>
+	</ul>
+</ol>
+
 ## What is this Dynamic Thing ?
 
 Dynamic titles and descriptions are titles and descriptions that change even after the video is uploaded to YouTube. This means that they can contain information that may change over time. So to say it in non-technical terms just replace the word with automatically updating. You can simply thing of them as changing every few minutes to catch up with some changing data.
