@@ -34,35 +34,38 @@ export const DESCRIPTION = {
 // Don't change any thing below unless you know what you are doing
 //-------------------------------------------------------------------
 
-// ========================================           
-// |       Entity      |   ENTITY_CODE    |
-// |-------------------|------------------|
-// |   View Count      |     <VIEW>       |
-// |   Like Count      |     <LIKE>       |
-// |   Dislike Count   |     <DISLIKE>    |
-// |   Favorite Count  |    <FAVORITE>    |
-// |   Comment Count   |     <COMMENT>    |
-// ======================================== 
+import { youtube_v3 } from "googleapis";
 
-export function fromatValue(value: string, statistics: { viewCount: any; likeCount: any; dislikeCount: any; favoriteCount: any; commentCount: any; }) {
-    return value.split('<VIEW>').join(statistics.viewCount)
-        .split('<LIKE>').join(statistics.likeCount)
-        .split('<DISLIKE>').join(statistics.likeCount)
-        .split('<FAVORITE>').join(statistics.likeCount)
-        .split('<COMMENT>').join(statistics.likeCount);
+export function fromatValue(value: string, statistics: youtube_v3.Schema$VideoStatistics) {
+    return value.split('<VIEW>').join(statistics.viewCount || '')
+        .split('<LIKE>').join(statistics.likeCount || '')
+        .split('<DISLIKE>').join(statistics.dislikeCount || '')
+        .split('<FAVORITE>').join(statistics.favoriteCount || '')
+        .split('<COMMENT>').join(statistics.commentCount || '');
 };
 
-export interface snippet {
-    description?: string,
-    title?: string,
-    tags?: [],
-    thumbnails?: {
-        default: {
-            height: number,
-            width: number,
-            url: string
-        }
-    },
-    categoryId: number,
-    defaultLanguage: string,
+export const ERRORS = {
+    NO_ITEMS : new Error('could not get details. response.data dose not contain items.'),
+    No_STATISTICS: new Error('could not get details. response.data.items[0] dose not contain statistics.'),
+    NO_SNIPPET: new Error('could not get details. response.data.items[0] dose not contain snippet.'),
+    NO_CHANGE: new Error('Atleast one amoung title or discription must be changed'),
+    GENERAL_ERROR: new Error('Something went wrong. Check log for more information.')
+}
+
+export interface VideoInfo {
+    statistics: youtube_v3.Schema$VideoStatistics,
+    snippet: youtube_v3.Schema$VideoSnippet
+}
+
+export interface CredentialsJSON {
+    installed? : {
+        client_secret: string,
+        client_id: string,
+        redirect_uris: Array<string>
+    }
+    refresh_token?: string | null;
+    expiry_date?: number | null;
+    access_token?: string | null;
+    token_type?: string | null;
+    id_token?: string | null;
 }

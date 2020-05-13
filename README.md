@@ -38,13 +38,13 @@ If you are planing to use the script with all the options set to default values 
 
 Lazy YouTube API was designed with combustibility in mind. This means that you can tweak every parameter the script uses. After opening the script on Colab run only the first code block then open `/api/functions/lib/constants.js` . The file is well documented about all settings you can change and how. These are all the available options.
 
-| **ENTITY** | **ENTITY CODE** |
-| :--------: | :-------------: |
-| View Count |     `<VIEW>`      |
-| Like Count | `<LIKE>` |
-| Dislike Count | `<DISLIKE>` |
-| Favourite Count | `<FAVOURITE>` |
-| Comment Count | `<COMMENT>` |
+|   **ENTITY**   | **ENTITY CODE** |
+| :------------: | :-------------: |
+|   View Count   |    `<VIEW>`     |
+|   Like Count   |    `<LIKE>`     |
+| Dislike Count  |   `<DISLIKE>`   |
+| Favorite Count |  `<FAVORITE>`   |
+| Comment Count  |   `<COMMENT>`   |
 
 
 

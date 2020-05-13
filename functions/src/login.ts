@@ -1,9 +1,12 @@
 import * as readline from 'readline';
 import { google } from 'googleapis';
 import * as fs from 'fs';
+import { CredentialsJSON } from './constants';
+import { OAuth2Client } from '../node_modules/googleapis-common/node_modules/google-auth-library/build/src/auth/oauth2client'
+export { OAuth2Client }
 
 // If modifying these scopes, delete your previously saved credentials
-// at ~/.credentials/youtube-nodejs-quickstart.json
+// at functions/lib/.credentials/credentials.json
 const SCOPES = ['https://www.googleapis.com/auth/youtube'];
 const CRED_DIR = __dirname + '/.credentials/';
 const TOKEN_PATH = CRED_DIR + 'youtube-data-v3.json';
@@ -15,7 +18,7 @@ const JSON_PATH = CRED_DIR + 'credentials.json'
  * @param {String} path The path to JSON file.
  * @returns {Promise<JSON>}
  */
-function readJSON(filePath: string): Promise<any> {
+function readJSON(filePath: string): Promise<CredentialsJSON> {
     return new Promise((resolve, reject) => {
         fs.readFile(filePath, (error, buffer) => {
             if (error) reject(error);
@@ -28,12 +31,14 @@ function readJSON(filePath: string): Promise<any> {
  * Create an OAuth2 client with the credentials from json, and then return a 
  * promise which resolves to OAuth2 object
  * 
- * @param {String} path The path to client credentials JSON file.
- * @returns {google.auth.OAuth2}
+ * @returns {OAuth2Client}
  */
-export async function login(): Promise<any> {
+export async function login(): Promise<OAuth2Client> {
     // Load client secrets from a local file.
     const credentials = await readJSON(JSON_PATH)
+    if(!credentials.installed) 
+        throw new Error(`Unable to read credentials. Make sure ${JSON_PATH} exists`)
+        
     // Authorize a client with the loaded credentials, then call the YouTube API.
     const clientSecret = credentials.installed.client_secret;
     const clientId = credentials.installed.client_id;

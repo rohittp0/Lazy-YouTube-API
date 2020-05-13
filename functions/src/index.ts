@@ -1,33 +1,45 @@
 import * as functions from 'firebase-functions';
-import { google } from 'googleapis';
-import { VIDEO_ID, TITLE, DESCRIPTION, snippet, fromatValue } from './constants';
-import { login } from './login';
+import { google, youtube_v3 } from 'googleapis';
+import { VIDEO_ID, TITLE, DESCRIPTION, ERRORS, VideoInfo, fromatValue } from './constants';
+import { login, OAuth2Client } from './login';
+
+const EXTRA_VIDEO_ID = '<E_VIDEO_ID>'
+const EXTRA_INFO = `This video's title is managed by Lazy Youtube API \\n
+                Check out https://www.youtube.com/watch?v=${EXTRA_VIDEO_ID}to know more. \\n`
 
 /**
  * Gets the statistics of the video with video id VIDEO_ID
  *
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ * @param {OAuth2Client} auth An authorized OAuth2 client.
+ * @returns {Promise<VideoInfo>} The details about the video.
  */
-async function getDetails(auth: any) {
+async function getDetails(auth: OAuth2Client): Promise<VideoInfo> {
     const service = google.youtube('v3');
 
     const response = await service.videos.list({
         auth: auth,
         id: VIDEO_ID,
-        part: 'statistics'
+        part: 'statistics,snippet'
     });
-    if (response.data.items)
-        return response.data.items[0].statistics;
-    else throw new Error("could not get view count");
+    if (!response.data.items)
+        throw ERRORS.NO_ITEMS;
+    if (!response.data.items[0].statistics)
+        throw ERRORS.No_STATISTICS;
+    if (!response.data.items[0].snippet)
+        throw ERRORS.NO_SNIPPET;
+    return {
+        statistics: response.data.items[0].statistics,
+        snippet: response.data.items[0].snippet
+    };
 }
 
 /**
  * Gets the statistics of the video with video id VIDEO_ID
  *
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- * @returns {Promise<any>} serevrResponse
+ * @param {OAuth2Client} auth An authorized OAuth2 client.
+ * @returns {Promise<youtube_v3.Schema$Video>} serverResponse
  */
-async function setDetails(auth: any, Snippet: any): Promise<any> {
+async function setDetails(auth: OAuth2Client, Snippet: youtube_v3.Schema$VideoSnippet): Promise<youtube_v3.Schema$Video> {
     const service = google.youtube('v3');
     return service.videos.update({
         auth: auth,
@@ -36,39 +48,43 @@ async function setDetails(auth: any, Snippet: any): Promise<any> {
             id: VIDEO_ID,
             snippet: Snippet
         }
-    });
+    }).then();
 }
 
 /**
  * Creates a snippet object to be used to update the video.
  *
- * @param {object} statistics The statistics object to get values from.
- * @returns {snippet} serevrResponse
+ * @param {VideoInfo} details The details about the video.
+ * @returns {youtube_v3.Schema$VideoSnippet}
  */
-function getSnippet(statistics: any): snippet {
-    const Snippet: snippet = {
-        categoryId: 27,
+function getSnippet(details: VideoInfo): youtube_v3.Schema$VideoSnippet {
+    const snippet: youtube_v3.Schema$VideoSnippet = {
+        categoryId: '27',
         defaultLanguage: 'en'
-    }
+    };
+    const statistics = details.statistics;
+    const desc = details.snippet.description;
+
     if (TITLE.CHANGE)
-        Snippet.title = fromatValue(TITLE.VALUE, statistics)
+        snippet.title = fromatValue(TITLE.VALUE, statistics);
     if (DESCRIPTION.CHANGE)
-        Snippet.description = fromatValue(DESCRIPTION.VALUE, statistics)
+        snippet.description = EXTRA_INFO + fromatValue(DESCRIPTION.VALUE, statistics);
+    else snippet.description = EXTRA_INFO + desc;
     if (!TITLE.CHANGE && !DESCRIPTION.CHANGE)
-        throw new Error("Atleast one amoung title and discription must be changed");
-    return Snippet
+        throw ERRORS.NO_CHANGE;
+    return snippet
 }
 
-export const updateVideo = functions.https.onRequest((request: any, response) => {
+export const updateVideo = functions.https.onRequest((_request, response) => {
     let auth: any;
     login().then((aut) => auth = aut)
         .then((_) => getDetails(auth))
         .then(getSnippet)
         .then((Snippet) => setDetails(auth, Snippet))
-        .then((res) => response.end("Mission Success"))
+        .then((_) => response.end('Mission Success'))
         .catch((error: any) => {
             console.error(error);
             response.status(404)
-                .send('Something went wrong. Check log for more information.');
+                .send(ERRORS.GENERAL_ERROR.message);
         });
 });
