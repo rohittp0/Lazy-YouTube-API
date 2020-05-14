@@ -4,8 +4,9 @@ import { VIDEO_ID, TITLE, DESCRIPTION, ERRORS, VideoInfo, fromatValue } from './
 import { login, OAuth2Client } from './login';
 
 const EXTRA_VIDEO_ID = 'sOfC0rcrCs8'
-const EXTRA_INFO = `This video's title is managed by Lazy Youtube API \\n
-                Check out https://www.youtube.com/watch?v=${EXTRA_VIDEO_ID}to know more. \\n`
+const EXTRA_INFO = `This video's title is managed by Lazy Youtube API
+Check out https://www.youtube.com/watch?v=${EXTRA_VIDEO_ID} to know more.
+`
 
 /**
  * Gets the statistics of the video with video id VIDEO_ID
