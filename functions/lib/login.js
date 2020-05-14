@@ -11,6 +11,7 @@ const SCOPES = ['https://www.googleapis.com/auth/youtube'];
 const CRED_DIR = __dirname + '/.credentials/';
 const TOKEN_PATH = CRED_DIR + 'youtube-data-v3.json';
 const JSON_PATH = CRED_DIR + 'credentials.json';
+let oauth2ClientCache;
 /**
  * Helper function to read JSON file
  *
@@ -32,8 +33,13 @@ function readJSON(filePath) {
  * promise which resolves to OAuth2 object
  *
  * @returns {OAuth2Client}
+ * @throws {Error('Unable to read credentials')}
  */
 async function login() {
+    // Check for cached OAuth2Client
+    if (oauth2ClientCache)
+        return oauth2ClientCache;
+    // No cache avalable
     // Load client secrets from a local file.
     const credentials = await readJSON(JSON_PATH);
     if (!credentials.installed)
@@ -48,6 +54,7 @@ async function login() {
         const token = await readJSON(TOKEN_PATH);
         //Found saved token so use it.
         oauth2Client.credentials = token;
+        oauth2ClientCache = oauth2Client;
         return oauth2Client;
     }
     catch (error) {
@@ -80,6 +87,7 @@ function getNewToken(oauth2Client) {
                 reject(err);
             else {
                 oauth2Client.credentials = token;
+                oauth2ClientCache = oauth2Client;
                 //Store token to disk be used in later program executions.
                 fs.writeFile(TOKEN_PATH, JSON.stringify(token), (error) => {
                     if (error)

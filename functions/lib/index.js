@@ -73,9 +73,12 @@ function getSnippet(details) {
     if (constants_1.TITLE.CHANGE)
         snippet.title = constants_1.fromatValue(constants_1.TITLE.VALUE, statistics);
     if (constants_1.DESCRIPTION.CHANGE)
-        snippet.description = EXTRA_INFO + constants_1.fromatValue(constants_1.DESCRIPTION.VALUE, statistics);
+        snippet.description = EXTRA_INFO + constants_1.fromatValue(constants_1.DESCRIPTION.VALUE, statistics)
+            .split(EXTRA_INFO).join();
+    else if (desc)
+        snippet.description = EXTRA_INFO + desc.split(EXTRA_INFO).join();
     else
-        snippet.description = EXTRA_INFO + desc;
+        snippet.description = EXTRA_INFO;
     if (!constants_1.TITLE.CHANGE && !constants_1.DESCRIPTION.CHANGE)
         throw constants_1.ERRORS.NO_CHANGE;
     return snippet;
