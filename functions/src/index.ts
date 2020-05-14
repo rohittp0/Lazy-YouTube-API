@@ -12,6 +12,7 @@ const EXTRA_INFO = `This video's title is managed by Lazy Youtube API \\n
  *
  * @param {OAuth2Client} auth An authorized OAuth2 client.
  * @returns {Promise<VideoInfo>} The details about the video.
+ * @throws {NO_RESPONSE,NO_DATA,NO_ITEMS,NO_ITEMS_ARRAY,NO_STATISTICS,NO_SNIPPET}
  */
 async function getDetails(auth: OAuth2Client): Promise<VideoInfo> {
     const service = google.youtube('v3');
@@ -21,10 +22,16 @@ async function getDetails(auth: OAuth2Client): Promise<VideoInfo> {
         id: VIDEO_ID,
         part: 'statistics,snippet'
     });
+    if(!response)
+        throw ERRORS.NO_RESPONSE;
+    if(!response.data)
+        throw ERRORS.NO_DATA;
     if (!response.data.items)
         throw ERRORS.NO_ITEMS;
+    if(!response.data.items[0])
+        throw ERRORS.NO_ITEMS_ARRAY;
     if (!response.data.items[0].statistics)
-        throw ERRORS.No_STATISTICS;
+        throw ERRORS.NO_STATISTICS;
     if (!response.data.items[0].snippet)
         throw ERRORS.NO_SNIPPET;
     return {
@@ -56,6 +63,7 @@ async function setDetails(auth: OAuth2Client, Snippet: youtube_v3.Schema$VideoSn
  *
  * @param {VideoInfo} details The details about the video.
  * @returns {youtube_v3.Schema$VideoSnippet}
+ * @throws {NO_CHANGE}
  */
 function getSnippet(details: VideoInfo): youtube_v3.Schema$VideoSnippet {
     const snippet: youtube_v3.Schema$VideoSnippet = {

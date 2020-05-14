@@ -36,9 +36,9 @@ function readJSON(filePath: string): Promise<CredentialsJSON> {
 export async function login(): Promise<OAuth2Client> {
     // Load client secrets from a local file.
     const credentials = await readJSON(JSON_PATH)
-    if(!credentials.installed) 
+    if (!credentials.installed)
         throw new Error(`Unable to read credentials. Make sure ${JSON_PATH} exists`)
-        
+
     // Authorize a client with the loaded credentials, then call the YouTube API.
     const clientSecret = credentials.installed.client_secret;
     const clientId = credentials.installed.client_id;
@@ -93,4 +93,4 @@ function getNewToken(oauth2Client: any): Promise<any> {
         }));
 }
 
-login().then(console.log).catch(console.error);
+login().then(() => console.log('loggedin')).catch(console.error);

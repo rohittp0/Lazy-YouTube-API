@@ -45,8 +45,11 @@ export function fromatValue(value: string, statistics: youtube_v3.Schema$VideoSt
 };
 
 export const ERRORS = {
+    NO_RESPONSE: new Error('could not get details. response was undefined.'),
+    NO_DATA: new Error('could not get details. response dose not contain data.'),
     NO_ITEMS : new Error('could not get details. response.data dose not contain items.'),
-    No_STATISTICS: new Error('could not get details. response.data.items[0] dose not contain statistics.'),
+    NO_ITEMS_ARRAY: new Error('could not get details. response.data.items is empty.'),
+    NO_STATISTICS: new Error('could not get details. response.data.items[0] dose not contain statistics.'),
     NO_SNIPPET: new Error('could not get details. response.data.items[0] dose not contain snippet.'),
     NO_CHANGE: new Error('Atleast one amoung title or discription must be changed'),
     GENERAL_ERROR: new Error('Something went wrong. Check log for more information.')
