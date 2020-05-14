@@ -93,5 +93,5 @@ function getNewToken(oauth2Client) {
         });
     }));
 }
-login().then(console.log).catch(console.error);
+login().then(() => console.log('loggedin')).catch(console.error);
 //# sourceMappingURL=login.js.map
