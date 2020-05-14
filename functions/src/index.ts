@@ -77,10 +77,15 @@ function getSnippet(details: VideoInfo): youtube_v3.Schema$VideoSnippet {
     if (TITLE.CHANGE)
         snippet.title = fromatValue(TITLE.VALUE, statistics);
     if (DESCRIPTION.CHANGE)
-        snippet.description = EXTRA_INFO + fromatValue(DESCRIPTION.VALUE, statistics);
-    else snippet.description = EXTRA_INFO + desc;
+        snippet.description = EXTRA_INFO + fromatValue(DESCRIPTION.VALUE, statistics)
+            .split(EXTRA_INFO).join()
+    else
+        if (desc) snippet.description = EXTRA_INFO + desc.split(EXTRA_INFO).join();
+        else snippet.description = EXTRA_INFO;
+
     if (!TITLE.CHANGE && !DESCRIPTION.CHANGE)
         throw ERRORS.NO_CHANGE;
+
     return snippet
 }
 

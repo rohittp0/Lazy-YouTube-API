@@ -12,6 +12,8 @@ const CRED_DIR = __dirname + '/.credentials/';
 const TOKEN_PATH = CRED_DIR + 'youtube-data-v3.json';
 const JSON_PATH = CRED_DIR + 'credentials.json'
 
+let oauth2ClientCache: OAuth2Client;
+
 /**
  * Helper function to read JSON file
  * 
@@ -32,8 +34,12 @@ function readJSON(filePath: string): Promise<CredentialsJSON> {
  * promise which resolves to OAuth2 object
  * 
  * @returns {OAuth2Client}
+ * @throws {Error('Unable to read credentials')}
  */
 export async function login(): Promise<OAuth2Client> {
+    // Check for cached OAuth2Client
+    if(oauth2ClientCache) return oauth2ClientCache;
+    // No cache avalable
     // Load client secrets from a local file.
     const credentials = await readJSON(JSON_PATH)
     if (!credentials.installed)
@@ -49,6 +55,7 @@ export async function login(): Promise<OAuth2Client> {
         const token = await readJSON(TOKEN_PATH)
         //Found saved token so use it.
         oauth2Client.credentials = token;
+        oauth2ClientCache = oauth2Client;
         return oauth2Client;
     } catch (error) {
         //No saved token found so get a new one.
@@ -80,6 +87,7 @@ function getNewToken(oauth2Client: any): Promise<any> {
                 if (err) reject(err)
                 else {
                     oauth2Client.credentials = token;
+                    oauth2ClientCache = oauth2Client;
                     //Store token to disk be used in later program executions.
                     fs.writeFile(TOKEN_PATH, JSON.stringify(token), (error: any) => {
                         if (error) reject(error);
