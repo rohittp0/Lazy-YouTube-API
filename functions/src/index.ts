@@ -3,7 +3,7 @@ import { google, youtube_v3 } from 'googleapis';
 import { VIDEO_ID, TITLE, DESCRIPTION, ERRORS, VideoInfo, fromatValue } from './constants';
 import { login, OAuth2Client } from './login';
 
-const EXTRA_VIDEO_ID = '<E_VIDEO_ID>'
+const EXTRA_VIDEO_ID = 'sOfC0rcrCs8'
 const EXTRA_INFO = `This video's title is managed by Lazy Youtube API \\n
                 Check out https://www.youtube.com/watch?v=${EXTRA_VIDEO_ID}to know more. \\n`
 
