@@ -47,7 +47,7 @@ export function fromatValue(value: string, statistics: youtube_v3.Schema$VideoSt
 export const ERRORS = {
     NO_RESPONSE: new Error('could not get details. response was undefined.'),
     NO_DATA: new Error('could not get details. response dose not contain data.'),
-    NO_ITEMS : new Error('could not get details. response.data dose not contain items.'),
+    NO_ITEMS: new Error('could not get details. response.data dose not contain items.'),
     NO_ITEMS_ARRAY: new Error('could not get details. response.data.items is empty.'),
     NO_STATISTICS: new Error('could not get details. response.data.items[0] dose not contain statistics.'),
     NO_SNIPPET: new Error('could not get details. response.data.items[0] dose not contain snippet.'),
@@ -61,7 +61,7 @@ export interface VideoInfo {
 }
 
 export interface CredentialsJSON {
-    installed? : {
+    installed?: {
         client_secret: string,
         client_id: string,
         redirect_uris: Array<string>

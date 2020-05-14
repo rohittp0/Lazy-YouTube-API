@@ -22,13 +22,13 @@ async function getDetails(auth: OAuth2Client): Promise<VideoInfo> {
         id: VIDEO_ID,
         part: 'statistics,snippet'
     });
-    if(!response)
+    if (!response)
         throw ERRORS.NO_RESPONSE;
-    if(!response.data)
+    if (!response.data)
         throw ERRORS.NO_DATA;
     if (!response.data.items)
         throw ERRORS.NO_ITEMS;
-    if(!response.data.items[0])
+    if (!response.data.items[0])
         throw ERRORS.NO_ITEMS_ARRAY;
     if (!response.data.items[0].statistics)
         throw ERRORS.NO_STATISTICS;
