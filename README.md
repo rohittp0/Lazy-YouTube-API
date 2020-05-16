@@ -86,7 +86,7 @@ git clone https://github.com/rohittp0/Lazy-YouTube-API.git
 
 ## How dose it Work ?
 
-This script creates a Firebase cloud function (HTTPS rest API)  that when called will use YouTube’s Data API  to read and update your video title and description. YouTube provides 10 thousand API quota per day. One call from our function costs 56 points so we can safely call the API every 8 minutes. Calling the function at this rate is handled by a cron job of your choice (I recommend [cron-job.org](https://cron-job.org/en/) ) . For more details check out the [documentation](https://lazyyoutubeapi.000webhostapp.com/globals.html).
+This script creates a Firebase cloud function (HTTPS rest API)  that when called will use YouTube’s Data API  to read and update your video title and description. YouTube provides 10 thousand API quota per day. One call from our function costs 56 points so we can safely call the API every 8 minutes. Calling the function at this rate is handled by a cron job of your choice (I recommend [cron-job.org](https://cron-job.org/en/) ) . For more details check out the [documentation](https://lazy-yt-api.web.app/globals.html).
 
 ## Questions and Feedback
 
