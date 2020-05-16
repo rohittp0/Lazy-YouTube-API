@@ -2,7 +2,7 @@
 
 <img src="./Rescources/icon.png" align="center" alt="logo">
 
-Haven't you heard about the latest trend in YouTube. **DYNAMIC VIDEO TITLES DESCRIPTIONS !! ** What you did not see the literally two videos that exists out there ? You surely must be living under a rock. Don't worry now you don't even need to know what it is to create one. You can use this script to walk you through and do the majority of the work.
+Haven't you heard about the latest trend in YouTube. **DYNAMIC VIDEO TITLES DESCRIPTIONS !!** What you did not see the literally two videos that exists out there ? You surely must be living under a rock. Don't worry now you don't even need to know what it is to create one. You can use this script to walk you through and do the majority of the work.
 
 ### Table of contents
 
