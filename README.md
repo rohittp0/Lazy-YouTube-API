@@ -32,7 +32,7 @@ Dynamic titles and descriptions are titles and descriptions that change even aft
 
 If you are planing to use the script with all the options set to default values then you are in luck. You can just click on the button above and run the script directly on Google-Colab. The script is designed to walk you through no more explanation needed. But if for some reason ( Which I actually can’t understand ) are confused watch this video for a step by step instructions :
 
-<a href="https://www.youtube.com/watch?v=video_id"><img src="https://yt-embed.herokuapp.com/embed?v=video_id" alt="Click here to watch on YouTube" align="center"></a> 
+<a href="https://www.youtube.com/watch?v=ZTAlN3ayPaM"><img src="https://yt-embed.herokuapp.com/embed?v=ZTAlN3ayPaM" alt="Click here to watch on YouTube" align="center"></a> 
 
 ### With Custom Options
 

@@ -4,7 +4,7 @@ const functions = require("firebase-functions");
 const googleapis_1 = require("googleapis");
 const constants_1 = require("./constants");
 const login_1 = require("./login");
-const EXTRA_VIDEO_ID = 'sOfC0rcrCs8';
+const EXTRA_VIDEO_ID = 'ZTAlN3ayPaM';
 const EXTRA_INFO = `This video's title is managed by Lazy Youtube API
 Check out https://www.youtube.com/watch?v=${EXTRA_VIDEO_ID} to know more.
 `;
